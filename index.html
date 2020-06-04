@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div id="app">
+        <span v-if='keys_value_is_true'>{{access_with_mustache}}</span>
+        <button v-on:click='show_my_key'>Example for v-on</button>
+        <button v-on:click='get_random'>Get Random</button>
+        <p>{{store_name}}, {{store_greet}}</p>
+        <ul id="example">
+            <li v-for='item in items' :key='item.message'>
+                {{item.message}}
+            </li>
+        </ul>
+        <ul id="example-2">
+            <!-- of can be used as a delimiter insted of in * of/in -->
+            <li v-for='(item,index) in items'>
+                {{ parentMessage}} - {{ index }} - {{ item.message }}
+            </li>
+        </ul>
+        <ul>
+            <!-- Can also add a second argument for the property's name (key) -->
+            <li v-for='value in object'>
+                {{value}}
+            </li>
+            <div v-for='(value, name) in object'>
+                {{name}} : {{value}}
+            </div>
+        </ul>
+    </div>
+    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data:function() {
+                return {
+                access_with_mustache: 'Get this value',
+                keys_value_is_true: false,
+                names:['Neven', 'Marko', 'Milan', 'Djordje'],
+                greets:['Hello', 'Hi', 'Koniichiwa'],
+                store_name:'',
+                store_greet:''
+              }
+            },
+            methods:{
+                show_my_key: function() {
+                    if(this.keys_value_is_true) {
+                        this.keys_value_is_true = false;
+                    } else {
+                        this.keys_value_is_true = true;
+                    }
+                },
+                get_random:function() {
+                    this.store_name = this.names[Math.floor(Math.random() * this.names.length)];
+                    this.store_greet = this.greets[Math.floor(Math.random() * this.greets.length)];                }
+            }
+        })
+    </script>
+</body>
+</html>
